@@ -9,8 +9,8 @@ Using AsyncStorage for saving data
 Main features:
 - Add task
 - Delete task
+- Edit task
 
 On progress:
-- Edit task
 - Date
 - Clone previousDay's tasks
