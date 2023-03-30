@@ -13,9 +13,11 @@ const App = () => {
   const [value, setValue] = useState({number: 0, content: ""});
 
   useEffect(() => {
-      AsyncStorage.getItem("taskList", (err, result) => {
+      AsyncStorage.getItem("taskList1", (err, result) => {
         const data = JSON.parse(result) ?? [];
-        setTaskList([...data]);
+        data.sort((a,b) => {return a.type - b.type;})
+        console.log(data);
+        setTaskList(data);
       });
     }
   ,[]);
@@ -24,10 +26,10 @@ const App = () => {
     AsyncStorage.setItem(key, data);
   }
 
-  const handleAddTask = (task) => {
-    const newTaskList = [...taskList, task];
+  const handleAddTask = (task, type) => {
+    const newTaskList = [...taskList, {content: task, type: type}];
     setTaskList(newTaskList);
-    saveData("taskList", JSON.stringify(newTaskList));
+    saveData("taskList1", JSON.stringify(newTaskList));
   }
 
   const handleDeleteTask = (index) => {
@@ -41,7 +43,7 @@ const App = () => {
             const newTaskList = [...taskList];
             newTaskList.splice(index, 1);
             setTaskList(newTaskList);
-            saveData("taskList", JSON.stringify(newTaskList));
+            saveData("taskList1", JSON.stringify(newTaskList));
             setVisible(false);
           }
         },
@@ -67,7 +69,7 @@ const App = () => {
     newTaskList[value.number] = value.content;
     setTaskList(newTaskList);
     setVisible(false);
-    saveData("taskList", JSON.stringify(newTaskList));
+    saveData("taskList1", JSON.stringify(newTaskList));
   }
   
   return (
@@ -78,7 +80,7 @@ const App = () => {
           {taskList.map((item, index) => {
             return <Task 
                 key={index} 
-                content={item} 
+                content={item.content} 
                 number={index + 1}
                 onPress={() => handleToggleModal(index, item)} 
               />

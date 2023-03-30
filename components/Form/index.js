@@ -3,43 +3,32 @@ import { Keyboard, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View
 
 import styles from "./style";
 
-export const TaskTypeModal = () => {
-    const data = [1, 2, 3];
+export const TaskTypeModal = (props) => {
+    const {visible, setVisible, task, addTask, setTask} = props;
+
+    const data = ["Quan trọng và khẩn cấp", "Quan trọng nhưng không khẩn cấp", "Không quan trọng nhưng khẩn cấp", "Không quan trọng và không khẩn cấp", "Lựa chọn sau"];
+    
+    const handlePress = (index) => {
+        setVisible(false);
+        addTask(task, index);
+        setTask("");
+    }
+
     return (
-        <Modal transparent={true}>
+        <Modal transparent={true} visible={visible}>
             <View style={styles.centredView}>
                 <View style={styles.modalContainer}>
                     <Text style={styles.title}>Mức độ công việc</Text>
-                    <TouchableOpacity>
-                        <View style={styles.item}>
-                            <View style={[styles.circle, styles.tier1]}></View>
-                            <Text style={styles.tierText}>Quan trọng và khẩn cấp</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.item}>
-                            <View style={[styles.circle, styles.tier2]}></View>
-                            <Text style={styles.tierText}>Quan trọng nhưng không khẩn cấp</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.item}>
-                            <View style={[styles.circle, styles.tier3]}></View>
-                            <Text style={styles.tierText}>Không quan trọng nhưng khẩn cấp</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.item}>
-                            <View style={[styles.circle, styles.tier4]}></View>
-                            <Text style={styles.tierText}>Không quan trọng và không khẩn cấp</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View style={styles.item}>
-                            <View style={[styles.circle, styles.none]}></View>
-                            <Text style={styles.tierText}>Lựa chọn sau</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {data.map((item, index) => {
+                        return (
+                            <TouchableOpacity key={index} onPress={() => handlePress(index)}>
+                                <View style={styles.item}>
+                                    <View style={[styles.circle, styles.tierColor[index]]}></View>
+                                    <Text style={styles.tierText}>{item}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        );
+                    })}
                 </View>
             </View>
         </Modal>
@@ -47,6 +36,7 @@ export const TaskTypeModal = () => {
 };
 
 const Form = (props) => {
+    const [visible, setVisible] = useState(false);
     const {onAddTask: addTask} = props;
     const [task, setTask] = useState("");
     const handlePress = () => {
@@ -54,8 +44,7 @@ const Form = (props) => {
             alert("Hãy nhập công việc!!!");
             return ;
         }
-        addTask(task);
-        setTask("");
+        setVisible(true);
         Keyboard.dismiss();
     }
 
@@ -80,7 +69,7 @@ const Form = (props) => {
                     </View>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
-            <TaskTypeModal />
+            <TaskTypeModal visible={visible} setVisible={setVisible} task={task} addTask={addTask} setTask={setTask} />
         </>
     )
 };

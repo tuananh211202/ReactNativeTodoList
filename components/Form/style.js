@@ -65,21 +65,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: "center",
     },
-    tier1: {
-        backgroundColor: "#dc143c"
-    },
-    tier2: {
-        backgroundColor: "#cd5c5c"
-    },
-    tier3: {
-        backgroundColor: "#f08080"
-    },
-    tier4: {
-        backgroundColor: "#e9967a"
-    },
-    none: {
-        backgroundColor: "#db7093"
-    },
+    tierColor: [
+        { backgroundColor: "#dc143c" },
+        { backgroundColor: "#cd5c5c" },
+        { backgroundColor: "#f08080" },
+        { backgroundColor: "#e9967a" },
+        { backgroundColor: "#db7093" },
+    ],
     circle: {
         width: 20,
         height: 20,
