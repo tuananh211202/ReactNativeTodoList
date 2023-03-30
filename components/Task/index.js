@@ -15,13 +15,13 @@ const Task = (props) => {
 
   return (
       <TouchableOpacity onPress={() => handleDeleteTask(taskNumber - 1)}>          
-          <View style={styles.item}>
-            <View style={[styles.square, itemBg]}>
-              <Text style={styles.number}>{formattenTaskNumber(taskNumber)}</Text>
-            </View> 
-            <Text style={styles.content}>{taskContent}</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={styles.item}>
+          <View style={[styles.square, itemBg]}>
+            <Text style={styles.number}>{formattenTaskNumber(taskNumber)}</Text>
+          </View> 
+          <Text style={styles.content}>{taskContent}</Text>
+        </View>
+      </TouchableOpacity>
   );
 };
 

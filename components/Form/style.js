@@ -34,6 +34,57 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: color.white,
         fontWeight: "bold"
+    },
+    centredView: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#00000099"
+    },
+    modalContainer: {
+        width: "90%",
+        height: 320,
+        backgroundColor: color.background,
+        borderRadius: 20,
+        borderWidth: 1
+    },
+    title: {
+        marginTop: 20,
+        marginHorizontal: 20,
+        fontSize: 20,
+        color: color.primary,
+        fontWeight: "bold"
+    },
+    item: {
+        flexDirection: "row",
+        backgroundColor: "white",
+        marginHorizontal: 20,
+        marginTop: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        alignItems: "center",
+    },
+    tier1: {
+        backgroundColor: "#dc143c"
+    },
+    tier2: {
+        backgroundColor: "#cd5c5c"
+    },
+    tier3: {
+        backgroundColor: "#f08080"
+    },
+    tier4: {
+        backgroundColor: "#e9967a"
+    },
+    none: {
+        backgroundColor: "#db7093"
+    },
+    circle: {
+        width: 20,
+        height: 20,
+        borderRadius: 20,
+        marginRight: 10
     }
 });
 

@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from './components/Task';
 import Form from './components/Form';
 import styles from './App.component.style';
+import TaskModal from './components/TaskModal';
 
 const App = () => {
   const [taskList, setTaskList] = useState([]);
@@ -13,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
       AsyncStorage.getItem("taskList", (err, result) => {
-        const data = JSON.parse(result);
+        const data = JSON.parse(result) ?? [];
         setTaskList([...data]);
       });
     }
@@ -85,28 +86,14 @@ const App = () => {
         </ScrollView>
       </View>
       <Form onAddTask={handleAddTask} />
-
-      {/* Modal */}
-      <Modal transparent={true} onRequestClose={() => setVisible(false)} visible={visible}>
-        <View style={styles.centredView}>
-          <View style={styles.modalContainer}>
-            <TextInput style={styles.textInput} value={value.content} onChangeText={(text) => setValue({...value, content: text})} />
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={[styles.saveButton, styles.button]} onPress={() => handleSavePress()}>
-                <Text style={styles.buttonText}>Lưu</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.deleteButton, styles.button]} onPress={() => handleDeletePress()}>
-                <Text style={styles.buttonText}>Xóa</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.cancelButton, styles.button]} onPress={() => setVisible(false)}>
-                <Text style={styles.buttonText}>Hủy</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-      {/* ### */}
-
+      <TaskModal 
+        visible={visible}
+        setVisible={setVisible}
+        value={value}
+        setValue={setValue}
+        handleDeletePress={handleDeletePress}
+        handleSavePress={handleSavePress}
+      />
     </View>
   );
 }
