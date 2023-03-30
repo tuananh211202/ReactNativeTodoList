@@ -15,7 +15,6 @@ const App = () => {
   useEffect(() => {
       AsyncStorage.getItem("taskList1", (err, result) => {
         const data = JSON.parse(result) ?? [];
-        data.sort((a,b) => {return a.type - b.type;})
         setTaskList(data);
       });
     }
@@ -27,6 +26,7 @@ const App = () => {
 
   const handleAddTask = (task, type) => {
     const newTaskList = [...taskList, {content: task, type: type}];
+    newTaskList.sort((a,b) => {return a.type - b.type;})
     setTaskList(newTaskList);
     saveData("taskList1", JSON.stringify(newTaskList));
   }
