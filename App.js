@@ -10,13 +10,12 @@ import TaskModal from './components/TaskModal';
 const App = () => {
   const [taskList, setTaskList] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [value, setValue] = useState({number: 0, content: ""});
+  const [value, setValue] = useState({number: 0, content: "", type: 0});
 
   useEffect(() => {
       AsyncStorage.getItem("taskList1", (err, result) => {
         const data = JSON.parse(result) ?? [];
         data.sort((a,b) => {return a.type - b.type;})
-        console.log(data);
         setTaskList(data);
       });
     }
@@ -57,7 +56,7 @@ const App = () => {
 
   const handleToggleModal = (ind, it) => {
     setVisible(true);
-    setValue({number: ind, content: it});
+    setValue({number: ind, content: it.content, type: it.type});
   }
 
   const handleDeletePress = () => {
@@ -66,7 +65,7 @@ const App = () => {
 
   const handleSavePress = () => {
     const newTaskList = [...taskList];
-    newTaskList[value.number] = value.content;
+    newTaskList[value.number] = {content: value.content, type: value.type};
     setTaskList(newTaskList);
     setVisible(false);
     saveData("taskList1", JSON.stringify(newTaskList));
